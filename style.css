@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
+:root {
+  --index: calc(1vw + 1vh);
+  --transition: all 0.2s ease-in-out;
+  --transform: translateY(-3px);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,39 +18,41 @@ body {
   display: flex;
 }
 
-.col {
+.column {
   flex: 1;
-  background-color: #b92222;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
 
+  background-color: #b92222;
   border: 1px solid black;
 }
 
-.col h2 {
+.column h2 {
   padding: 10px;
   color: #fff;
   border-radius: 10px;
-  transition: all 0.2s ease-in-out;
+  font-size: calc(var(--index) * 1);
+  transition: var(--transition);
 }
 
-.col h2:hover {
+.column h2:hover {
   background: rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transform: translateY(-3px);
+  transform: var(--transform);
 }
 
-.col button {
+.column button {
   padding: 10px;
   background: transparent;
   border: none;
   color: #fff;
-  transition: all 0.2s ease-in-out;
+  font-size: calc(var(--index) * 0.6);
+  transition: var(--transition);
 }
 
-.col button:hover {
+.column button:hover {
   cursor: pointer;
-  transform: translateY(-3px);
+  transform: var(--transform);
 }
