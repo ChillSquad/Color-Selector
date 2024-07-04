@@ -1,4 +1,27 @@
 const cols = document.querySelectorAll(".column");
+const btn = document.querySelectorAll("button");
+const italic = document.querySelectorAll("i");
+
+document.addEventListener("keydown", (event) => {
+  event.preventDefault();
+  if (event.code.toLocaleLowerCase() === "space") {
+    setRandomColors();
+  }
+});
+
+document.addEventListener("click", (event) => {
+  const type = event.target.dataset.type;
+
+  if (type === "lock") {
+    const node =
+      event.target.tagName.toLowerCase() === "i"
+        ? event.target
+        : event.target.children[0];
+
+    node.classList.toggle("fa-lock-open");
+    node.classList.toggle("fa-lock");
+  }
+});
 
 const generateRandomColor = () => {
   const hexCodes = "0123456789ABCDEF";

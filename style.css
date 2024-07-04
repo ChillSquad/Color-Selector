@@ -48,6 +48,7 @@ body {
   color: #fff;
   font-size: calc(var(--index) * 0.6);
   transition: var(--transition);
+  outline: none;
 }
 
 .column button:hover {
