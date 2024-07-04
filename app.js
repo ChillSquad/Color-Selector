@@ -3,8 +3,6 @@ const cols = document.querySelectorAll(".column");
 document.addEventListener("keydown", (event) => {
   if (event.code.toLocaleLowerCase() === "space") {
     event.preventDefault();
-  }
-  if (event.code.toLocaleLowerCase() === "space") {
     setRandomColors();
   }
 });
@@ -21,7 +19,9 @@ document.addEventListener("click", (event) => {
     node.classList.toggle("fa-lock-open");
     node.classList.toggle("fa-lock");
   } else if (type === "copy") {
-    copyOnClick(event.target.textContent);
+    const tooltip = event.target.closest(".tooltip");
+    const tooltipText = tooltip.querySelector(".tooltiptext");
+    copyOnClick(event.target.textContent, tooltipText);
   }
 });
 
@@ -34,8 +34,18 @@ const generateRandomColor = () => {
   return "#" + color;
 };
 
-const copyOnClick = (text) => {
-  return navigator.clipboard.writeText(text);
+const copyOnClick = (text, tooltipText) => {
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      tooltipText.textContent = "Готово";
+      setTimeout(() => {
+        tooltipText.textContent = "Скопировать";
+      }, 1000); // Меняет текст обратно через 1 секунду
+    })
+    .catch((err) => {
+      console.error("Не удалось скопировать текст: ", err);
+    });
 };
 
 const setRandomColors = (isInitial) => {
@@ -45,6 +55,7 @@ const setRandomColors = (isInitial) => {
     const isLocked = col.querySelector("i").classList.contains("fa-lock");
     const text = col.querySelector("h2");
     const btn = col.querySelector("button");
+    const popup = col.querySelector(".tooltiptext");
 
     const randomColor = isInitial
       ? colors[index]
@@ -64,6 +75,7 @@ const setRandomColors = (isInitial) => {
     text.innerHTML = randomColor;
     col.style.background = randomColor;
 
+    setTextColor(popup, randomColor);
     setTextColor(text, randomColor);
     setTextColor(btn, randomColor);
   });
